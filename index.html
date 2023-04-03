@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<title>user details simple app</title>
+</head>
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@300&display=swap');
+*{
+	padding: 0;
+	margin: o;
+	box-sizing: border-box;
+	transition: .4s;
+	font-family: Catamaran;
+	text-transform: capitalize;
+}
+	body{
+		background: #ccc;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	form{
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+		text-align: center;
+/*height: 60vh;*/
+width: 60%;
+background-color: #08090a;
+color: #fff;
+
+	}
+	h1{
+		line-height: 20px;
+		font-weight: 900;
+		font-size: 50px;
+	}
+	input[type="text"],input[type="email"]{
+		width: 50%;
+		height: 30px;
+		padding: 20px;
+		border-radius: 20px;
+		outline: none;
+		border:none ;
+		font-weight: 800;
+	}
+	input[type="submit"]{
+		height: 50px;
+		width: 90px;
+		border-radius: 10px;
+		border: none;
+		color: #fff;
+		font-size: 20px;
+		cursor: pointer;
+		font-weight:300;
+		background: #07830b;
+	}
+	input[type="submit"]:hover{
+		transition: .4s;
+		background: transparent;
+		border: 1px solid #07830b;
+		box-shadow: 2px 5px 5px rgba(7, 131, 11, 1),
+	                2px 3px 5px rgba(7, 131, 11, 1);	
+	}
+	ul{
+		margin-left: 20%;
+		margin-right: 20%;
+		
+	}
+ li{
+border-top: 1px solid #ccc;
+list-style-type: none;
+font-size: 20px;
+padding-bottom: 10px;
+	}
+	.alert_msg{
+		background: red;
+		margin-bottom: 15px;
+		width: 30%;
+		margin-left: 35%;
+        letter-spacing: 1.2px;
+	}
+	.success{
+		background: green;
+		color: white;
+		margin-bottom: 15px;
+		width: 30%;
+		margin-left: 35%;
+        letter-spacing: 1.2px;
+	}
+	
+</style>
+<body>
+<form id="form">
+	<h1>personal details</h1>
+	<div class="alert_msg" id="alert_msg"></div>
+	<div class="success"></div>
+	<input type="text" name="names" placeholder="Enter your first name" id="fnname"><br><br>
+	<input type="text" name="names" placeholder="Enter your second name" id="scname"><br><br>
+	<input type="email" name="email" placeholder="Enter your email" id="email"><br><br>
+	<input type="submit" name="send" id="sub" value="Add" class="Add">
+	<ul id="users"></ul>
+
+</form>
+<script>
+const myForm = document.querySelector('#form');
+const msg = document.queryeSlector('.alert_msg');
+const success = document.querySelector('.success')
+const fnInput1 = document.querySelector('#fnname');    
+const scInput2 = document.querySelector('#scname');
+const emailInput = document.querySelector('#email');
+const userList = document.querySelector('#users');
+const btn = document.getElementById('sub');
+let contact = [];
+if (localStorage.getItem('address') == null) {
+	contact = [];
+} else {
+	 contact = JSON.parse(localStorage.getItem('address'));
+}
+btn.addEventListener('click', (e) => {
+	e.preventDefault();
+	let person = new Object();
+	person.fname = fnInput1.value;
+	person.lname = scInput2.value;
+	person.email = emailInput.value;
+	contact.push(person);
+	localStorage.setItem('address', JSON.stringify(contact));
+	display(contact);
+});
+function display(data) {
+	userList.innerHTML = '';
+	for(let cont of contact) {
+		let singlePerson = `<p> First Name: ${cont.fname} <br /> Last Name: ${cont.lname} <br> Email: ${cont.email}</p>`;
+		userList.innerHTML += singlePerson;
+	}
+}
+display(contact);
+
+</script>
+</body>
+</html>

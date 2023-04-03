@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>contact Addition</title>
+</head>
+<style>
+	*{
+		padding: 0;
+		margin: 0;
+		box-sizing: border-box;
+		transition: .4s;
+
+	}
+	body{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: wheat;
+	}
+	.container{
+		margin-top: 20px;
+		background: #010b14;
+		width: 60%;
+		padding: 50px;
+		color: #fff;
+font-family: Catamaran;
+border-top-right-radius: 20px;
+	border-top-left-radius: 20px;
+	}
+	h2{
+		font-size: 40px;
+		margin-top: -20px;
+		text-align: center;
+		padding-bottom: 40px;
+		text-transform: capitalize;
+	}
+	input{
+		padding:10px;
+		gap: 20px;
+		width: 45%;
+		margin-bottom: 20px;
+	}
+	input:nth-child(2){
+		
+		margin-right: 40px;
+	}
+	input[type="text"],input[type="tel"]{
+		border: none;
+		outline: none;
+		gap: 20px;
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+
+	}
+	.addition{
+		text-align: center;
+color: #fff;
+border: 1px solid green;
+border-radius: 50%;
+height: 50px;
+width: 50px;
+transform: translate(640%,50%);
+	}
+	.addition:hover{
+		background: green;
+		transition: .4s;
+	}
+ label{
+ 	cursor: pointer;
+ 	display: flex;
+ 	alig-items: center;
+ 	justify-content: center;
+ 	text-align: center;
+ 	font-weight: bold;
+
+	color: #fff;
+		font-size: 43px;
+	}
+	ul{
+		margin-top: 50px;
+		border-top: 1px solid #fff;
+		padding-top: 20px;
+		text-align: center;
+	}
+	li{
+		list-style-type: none;
+		font-size: 20px;
+	}
+</style>
+<body>
+<div class="container">
+	<h2>Add new contact</h2>
+	<input type="text" name="" placeholder="Enter the name..." id="fullName">
+	<input type="tel" name="" placeholder="Enter the phone number..." required id="telephone">
+	<div class="addition">
+		<label class="btn">+</label>
+
+	</div>
+		<ul class="addlist">
+	</ul>
+</div>
+<script>
+	const container = document.querySelector(".container");
+	const fullName = document.querySelector("#fullName");
+	const telInput = document.querySelector("#telephone");
+	const list = document.querySelector(".addlist");
+	const add = document.querySelector(".btn");
+     let details = [];
+     if (localStorage.getItem('data') == null) {
+       details = [];
+     } else {
+     	details = JSON.parse(localStorage.getItem('data'));
+     	for (let listing of details){
+     		let li = document.createElement('li');
+     li.appendChild(document.createTextNode(`${listing.fullName} : ${listing.telInput}`));
+     list.appendChild(li);
+     	}
+
+     }
+     add.addEventListener('click', (e)=>{
+     e.preventDefault();
+     let x = new Object();
+     x.fullName = fullName.value;
+     x.telInput = telInput.value;
+     details.push(x);
+     localStorage.setItem('data', JSON.stringify(details));
+     
+     if (fullName.value =="" || telInput.value =="") {
+ 		alert("please fill the field!!")
+     } else {
+     const li = document.createElement('li');
+     li.appendChild(document.createTextNode(`${fullName.value} : ${telInput.value}`));
+     list.appendChild(li);
+     fullName.value = "";
+     telInput.value = ""; 
+	 }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Stop watch</title>
+</head>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: 0;
+        transition: .4s ease-in-out;
+    }
+    body{
+        background-color: #181a19;
+    }
+    .container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 15%;
+    
+    }
+    .card{
+        width: 450px;
+        text-align: center;
+        background-color: #20423f;
+        border-radius: 20px;
+    }
+    .timer{
+        padding: 2.2em;
+    }
+    .timer span{
+        font-size: 2.2em;
+        font-weight: bold;
+        color: aliceblue;
+    }
+    .btns{
+        padding: 1.8em;
+        background-color: #521e2e;
+        color: #fff;
+    }
+    .btns button{
+width: 5em;
+padding: 1.2em;
+    }
+    .btns button:nth-child(1){
+        margin-left: 5px;
+    }
+    .btns button:nth-child(2){
+        margin-left: 25px;
+    }
+    .btns button:nth-child(3){
+        margin-left: 28px;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="timer">
+                <span id="counter">00:00:00</span>
+            </div>
+            <div class="btns">
+                <button onclick="start()"><i class="fa-solid fa-play"></i></button>
+                <button onclick="stop()"><i class="fa-solid fa-pause"></i></button>
+                <button onclick="reset()"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+var counter = document.getElementById("counter");
+var [seconds,minutes,hours] = [0,0,0];
+var timer = null;
+function stopwatch(){
+    seconds++;
+    if (seconds == 60) {
+        seconds = 0;
+        minutes ++;
+    }
+    else if(minutes == 60){
+        minutes = 0;
+        hours++;
+    }
+    else if(hours == 24){
+hours = 0;
+minutes = 0;
+seconds = 0;
+    }
+    let h = hours <=10 ? "0" + hours:hours;
+    let m = minutes <=10 ? "0" + minutes:minutes;
+    let s = seconds <=9 ? "0" + seconds:seconds;
+counter.innerHTML = h +":"+ m +":"+ s;
+}
+    function start(){
+        if (timer!==null) {
+            clearInterval(timer);
+        }
+timer = setInterval(stopwatch,1000);
+    }
+    function stop(){
+        clearInterval(timer);
+    }
+    function reset() {
+        counter.innerHTML = "00:00:00";
+        clearInterval(timer);
+    }
+    </script>
+</body>
+
+</html>
